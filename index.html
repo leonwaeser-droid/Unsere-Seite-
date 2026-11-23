@@ -66,7 +66,7 @@ const INHALT = {
       { was: "Song",    wert: "[Hula Girl, Santa Baby]" },
       { was: "Ort",     wert: "[Zu Hause]" },
       { was: "Hobby",   wert: "[Lesen und Musik hören]" },
-      { was: "An ihm",  wert: "[Von Leon massieren lassen undLeons Pupse]" },
+      { was: "An ihm",  wert: "[Von Leon massieren lassen und Leons Pupse]" },
     ],
   },
 
@@ -347,6 +347,26 @@ const INHALT = {
   .schwebeherzen span{position:absolute;bottom:-40px;color:var(--pink-kraeftig);opacity:.55;animation:aufsteigen linear infinite}
   @keyframes aufsteigen{to{transform:translateY(-110vh) rotate(25deg)}}
   #jahrestag .inhalt{position:relative;z-index:1}
+
+  /* Schluss */
+  .schluss{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:24px;text-align:center;
+    background:radial-gradient(ellipse at 50% 30%,#3b4b8f 0%,#232c5e 55%,#161c40 100%)}
+  .schluss.offen{display:flex;animation:nachtrein 1.6s ease}
+  @keyframes nachtrein{from{opacity:0}to{opacity:1}}
+  .sterne{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+  .sterne span{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:funkeln2 2.4s ease-in-out infinite}
+  @keyframes funkeln2{50%{opacity:.2;transform:scale(.6)}}
+  .schluss-inhalt{position:relative;max-width:520px}
+  .gurke{width:min(300px,78vw);height:auto;animation:schweben 4s ease-in-out infinite}
+  .gurke-atmet{transform-box:fill-box;transform-origin:50% 100%;animation:atmen 3s ease-in-out infinite}
+  @keyframes atmen{50%{transform:scaleY(1.05)}}
+  .zzz{font-family:"Fredoka",sans-serif;font-weight:600;fill:#fff;opacity:0;animation:zzz 3s ease-in-out infinite}
+  .z1{font-size:16px}.z2{font-size:20px;animation-delay:.8s}.z3{font-size:26px;animation-delay:1.6s}
+  @keyframes zzz{0%{opacity:0;transform:translateY(8px)}40%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
+  .schluss-spruch{font-family:"Great Vibes",cursive;font-size:clamp(2.6rem,11vw,4.4rem);line-height:1.15;color:#fff;
+    margin:10px 0 26px;text-shadow:0 0 18px rgba(255,172,203,.8),0 0 40px rgba(169,212,245,.6);
+    opacity:0;animation:spruchrein 1.8s ease .9s forwards}
+  @keyframes spruchrein{from{opacity:0;transform:translateY(14px);letter-spacing:.08em}to{opacity:1;transform:none;letter-spacing:0}}
 
   /* ---------- Brief ---------- */
   .brief-hg{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;
@@ -699,6 +719,35 @@ const INHALT = {
       <button class="knopf pink ja" id="ja-knopf" onclick="jaGedrueckt()"></button>
     </div>
   </article>
+</div>
+
+<!-- ============ SCHLUSS (erscheint, wenn alles angeschaut wurde) ============ -->
+<div class="schluss" id="schluss" role="dialog" aria-modal="true" aria-label="Gute Nacht">
+  <div class="sterne" id="sterne"></div>
+  <div class="schluss-inhalt">
+    <svg class="gurke" viewBox="0 0 280 210" aria-hidden="true">
+      <defs><mask id="sichel"><rect width="280" height="210" fill="#fff"/><circle cx="178" cy="78" r="70" fill="#000"/></mask></defs>
+      <circle cx="140" cy="100" r="82" fill="#fff6c9" mask="url(#sichel)"/>
+      <g class="gurke-atmet">
+        <g transform="rotate(-10 140 150)">
+          <rect x="62" y="128" width="160" height="50" rx="25" fill="#86c96f"/>
+          <rect x="62" y="128" width="160" height="50" rx="25" fill="none" stroke="#5fa152" stroke-width="3"/>
+          <circle cx="92" cy="146" r="3" fill="#5fa152"/><circle cx="112" cy="162" r="3" fill="#5fa152"/><circle cx="130" cy="142" r="3" fill="#5fa152"/>
+          <circle cx="104" cy="137" r="2.5" fill="#5fa152"/><circle cx="148" cy="165" r="2.5" fill="#5fa152"/>
+          <path d="M168 150 q6 5 12 0" stroke="#2f4a2a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M188 148 q6 5 12 0" stroke="#2f4a2a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <circle cx="170" cy="160" r="4.5" fill="#ffaccb" opacity=".8"/><circle cx="200" cy="158" r="4.5" fill="#ffaccb" opacity=".8"/>
+          <path d="M182 162 q4 3 8 0" stroke="#2f4a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <path d="M196 132 L238 112 L214 140 Z" fill="#ff8fbb"/>
+          <path d="M196 132 L214 140" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="240" cy="111" r="7" fill="#fff"/>
+        </g>
+      </g>
+      <text class="zzz z1" x="226" y="96">z</text><text class="zzz z2" x="240" y="78">z</text><text class="zzz z3" x="256" y="58">Z</text>
+    </svg>
+    <p class="schluss-spruch" id="schluss-spruch"></p>
+    <button class="knopf pink" onclick="schlussZu()">Gute Nacht 💤</button>
+  </div>
 </div>
 
 <!-- ============ LIGHTBOX ============ -->
@@ -1071,6 +1120,29 @@ function groesse(){
 }
 const ro=new ResizeObserver(groesse);ro.observe($("raetsel-rahmen"));
 
+/* ---------- Schluss: wenn alles angeschaut wurde ---------- */
+const ALLE_SEITEN=["er","sie","dates","fotos","zukunft","ziele","ideen","urlaub","dackelnamen","raetsel","jahrestag"];
+let besuchtSpeicher=new Set();
+function besucht(id){
+  if(!ALLE_SEITEN.includes(id))return;
+  let liste; try{liste=new Set(JSON.parse(sessionStorage.getItem("besucht")||"[]"));}catch(e){liste=besuchtSpeicher;}
+  liste.add(id); besuchtSpeicher=liste;
+  try{sessionStorage.setItem("besucht",JSON.stringify([...liste]));}catch(e){}
+  if(ALLE_SEITEN.every(x=>liste.has(x)) && speicher.get("schluss")!=="1"){
+    speicher.set("schluss","1"); setTimeout(schlussAuf,1800);
+  }
+}
+function schlussAuf(){
+  $("schluss-spruch").textContent=INHALT.schlussSpruch||"Träum süß von sauren Gurken";
+  const st=$("sterne");
+  if(!st.childElementCount){for(let i=0;i<60;i++){const sp=el("span");sp.style.left=Math.random()*100+"%";sp.style.top=Math.random()*100+"%";
+    sp.style.animationDelay=(-Math.random()*2.4)+"s";if(i%5===0){sp.style.width=sp.style.height="4px";}st.append(sp);}}
+  const sp=$("schluss-spruch"); sp.style.animation="none"; void sp.offsetWidth; sp.style.animation="";
+  $("schluss").classList.add("offen");
+}
+function schlussZu(){ $("schluss").classList.remove("offen"); }
+window.schlussZu=schlussZu;
+
 /* ---------- Navigation ---------- */
 function geheZu(id){location.hash=id;}
 function zeigeSeite(){
@@ -1081,10 +1153,11 @@ function zeigeSeite(){
   if(ziel.id==="raetsel"){ requestAnimationFrame(groesse);
     if(speicher.get("geloest")==="1"||speicher.get("ja")==="1") $("raetsel-weiter").classList.add("da"); }
   if(ziel.id==="jahrestag"){zaehlen();herzenSteigen();}
+  if($("schloss").classList.contains("weg")) besucht(ziel.id);
 }
 window.addEventListener("hashchange",zeigeSeite);
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){briefZu();$("lightbox").classList.remove("offen");}
+  if(e.key==="Escape"){briefZu();$("lightbox").classList.remove("offen");schlussZu();}
   if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches(".klickbar,.herz-wrap,#haus,#zauberdackel")){e.preventDefault();e.target.dispatchEvent(new Event("click"));}
 });
 
