@@ -409,7 +409,7 @@ const INHALT = {
   .zettel.b::before,.zettel:nth-child(3n)::before{background:rgba(169,212,245,.75)}
   .foto{aspect-ratio:1/1;background:linear-gradient(135deg,var(--blau),var(--pink));display:flex;align-items:center;justify-content:center;
     font-size:2.2rem;color:rgba(255,255,255,.95);overflow:hidden;border-radius:2px}
-  .foto img{width:100%;height:100%;object-fit:cover;display:block}
+  .foto img{width:100%;height:auto;display:block}.foto:has(img){aspect-ratio:auto;background:none}.wand{align-items:start}
   .zettel .titel{font-family:var(--hand);font-size:1.45rem;line-height:1.05;margin-top:8px;text-align:center}
   .zettel .klein{font-size:.85rem;color:var(--text-leise);text-align:center}
 
