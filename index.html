@@ -1170,5 +1170,5 @@ if(speicher.get("entsperrt")==="1"){$("schloss").style.transition="none";$("schl
 zeigeSeite();
 }
 </script>
-</body>
+<script>(function(){function verteilen(){var n=window.innerWidth>=700?4:2;document.querySelectorAll('.wand').forEach(function(w){var bilder=[].slice.call(w.querySelectorAll('.zettel'));w.innerHTML='';var spalten=[];for(var i=0;i<n;i++){var sp=document.createElement('div');sp.className='spalte';w.appendChild(sp);spalten.push(sp);}bilder.forEach(function(b,i){spalten[i%n].appendChild(b);});});return n;}var zuletzt=verteilen();window.addEventListener('resize',function(){var n=window.innerWidth>=700?4:2;if(n!==zuletzt){zuletzt=verteilen();}});})();</script></body>
 </html>
