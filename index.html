@@ -967,7 +967,7 @@ function herzenSteigen(){
 function polaroid(eintrag,klein,variante){
   const z=el("figure","zettel"+(variante||"")); z.style.setProperty("--dreh",((Math.random()*6)-3).toFixed(1)+"deg");
   const f=el("div","foto","♥");
-  if(eintrag.bild){const img=new Image();img.alt=eintrag.titel||eintrag.text||"";img.loading="lazy";
+  if(eintrag.bild){const img=new Image();img.alt=eintrag.titel||eintrag.text||"";
     img.onload=()=>{f.textContent="";f.append(img);};img.src=eintrag.bild;}
   z.append(f, el("figcaption","titel",eintrag.titel||eintrag.text||""));
   if(klein) z.append(el("div","klein",klein));
