@@ -914,7 +914,7 @@ function briefAuf(){
   z.append(el("p","anrede",b.anrede));
   b.absaetze.forEach(t=>z.append(el("p",null,t)));
   z.append(el("p","gruss",b.gruss));
-  $("brief-frage").textContent=b.frage;
+  $("brief-frage").innerHTML="";b.frage.split(/(\bja\b)/i).forEach(function(t){if(/^ja$/i.test(t)){const s=el("span","ja-wort",t);s.style.cursor="pointer";s.onclick=jaGedrueckt;$("brief-frage").append(s);}else{$("brief-frage").append(t);}});$("ja-knopf").style.display="none";
   $("ja-knopf").textContent=b.jaKnopf;
   $("brief-hg").classList.add("offen");
   $("brief-hg").querySelector(".brief").scrollTop=0;
