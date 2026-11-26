@@ -1055,7 +1055,7 @@ function baueRaetsel(){
   const woerterPos=L.gelegt.map(o=>({...o,r:o.r-L.r0,c:o.c-L.c0}));
   woerterPos.sort((a,b)=>a.r-b.r||a.c-b.c);
   const nummern=new Map();let n=0;
-  woerterPos.forEach(o=>{const k=o.r+","+o.c;if(!nummern.has(k))nummern.set(k,++n);o.nr=nummern.get(k);});
+  [0,1].forEach(d=>woerterPos.filter(o=>o.d===d).forEach(o=>{o.nr=++n;const k=o.r+","+o.c;nummern.set(k,nummern.has(k)?nummern.get(k)+"/"+o.nr:String(o.nr));}));
   const zellen=new Map();
   woerterPos.forEach((o,wi)=>{for(let k=0;k<o.w.length;k++){const r=o.r+(o.d?k:0),c=o.c+(o.d?0:k),key=r+","+c;
     const z=zellen.get(key)||{r,c,b:o.w[k],woerter:[]};z.woerter[o.d]=wi;zellen.set(key,z);}});
