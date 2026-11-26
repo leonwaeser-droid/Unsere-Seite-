@@ -945,7 +945,7 @@ function zaubern(){
     f.style.color=["#ffd84d","#ff9cc4","#a9d4f5","#ffffff"][i%4]; f.style.animationDelay=(Math.random()*0.9)+"s";
     box.append(f); setTimeout(()=>f.remove(),2600);
   }
-  setTimeout(()=>{ geheZu("jahrestag"); d.classList.remove("zaubert"); t.classList.remove("verzaubert"); zaubertGerade=false; },2300);
+  setTimeout(()=>{ schlussAuf(); d.classList.remove("zaubert"); t.classList.remove("verzaubert"); zaubertGerade=false; },2300);
 }
 
 /* ---------- Jahrestag-Zähler ---------- */
