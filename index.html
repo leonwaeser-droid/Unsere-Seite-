@@ -890,7 +890,7 @@ function aufbauSzene(){
   $("figur-sie").innerHTML=`<g transform="translate(176,100)">${figurSie()}</g>`;
   $("rudel").innerHTML=rudel(424,373,.48,[[455,388],[515,388],[445,414],[508,414],[435,440],[500,440],
     [290,472],[345,472],[400,472],[455,472],[512,472]]);
-  $("bild-er").innerHTML=`<g transform="translate(5,8)">${figurEr()}</g>`;
+  $("bild-er").innerHTML=`<g transform="translate(5,8)">${figurEr().replace("M82 110 L112 218","M82 110 L97 186").replace('cx="113" cy="221"','cx="97" cy="190"')}</g>`;
   $("bild-sie").innerHTML=`<g transform="translate(10,4)">${figurSie()}</g>`+rudel(103,145,.35,[
     [130,172],[180,172],[225,172],[115,190],[165,190],[215,190],[100,208],[150,208],[200,208],[125,226],[175,226]]);
 }
